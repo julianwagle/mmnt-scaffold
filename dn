@@ -1,0 +1,26 @@
+#!/bin/bash
+
+ROOT="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
+ENV="$ROOT/.env"
+
+REACT_APP_SERVER_ADRS="$(sed '1q;d' $ENV)"
+REACT_APP_SERVER_ADRS=`echo $REACT_APP_SERVER_ADRS | sed 's/REACT_APP_SERVER_ADRS=//'`
+REACT_APP_SERVER_ADRS=`echo $REACT_APP_SERVER_ADRS | sed 's/ *$//g'`
+
+REACT_APP_SERVER_PASS="$(sed '2q;d' $ENV)"
+REACT_APP_SERVER_PASS=`echo $REACT_APP_SERVER_PASS | sed 's/REACT_APP_SERVER_PASS=//'`
+REACT_APP_SERVER_PASS=`echo $REACT_APP_SERVER_PASS | sed 's/ *$//g'`
+
+REACT_APP_PROJECT_NAME="$(sed '3q;d' $ENV)"
+REACT_APP_PROJECT_NAME=`echo $REACT_APP_PROJECT_NAME | sed 's/REACT_APP_PROJECT_NAME=//'`
+REACT_APP_PROJECT_NAME=`echo $REACT_APP_PROJECT_NAME | sed 's/ *$//g'`
+
+read -n1 -p "WARNING: Pressing 0 will shut down production build. SHUT DOWN PRODUCTION (0) OR CANCEL OPERATION (1)? [0,1]" input 
+case $input in  
+  0) cd ../;
+    DOCKER_CMDS="cd $REACT_APP_PROJECT_NAME; docker-compose down";
+    sshpass -p "$REACT_APP_SERVER_PASS" rsync -avz --exclude-from=$REACT_APP_PROJECT_NAME/exclude.txt $REACT_APP_PROJECT_NAME/ root@$REACT_APP_SERVER_ADRS:/root/$REACT_APP_PROJECT_NAME/;
+    sshpass -p "$REACT_APP_SERVER_PASS" ssh -o StrictHostKeyChecking=no root@$REACT_APP_SERVER_ADRS "$DOCKER_CMDS" ;; 
+  1) echo 'Operation cancelled.' ;; 
+  *) echo -e "\nINVALID INPUT!!!\nONLY 0 OR 1 ARE VALID!!!" ;; 
+esac

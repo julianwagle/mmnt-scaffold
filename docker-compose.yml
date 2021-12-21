@@ -1,0 +1,39 @@
+version: '3'
+
+volumes:
+  mysite_traefik: {}
+
+services:
+
+  node:
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    image: mysite_node
+    container_name: mysite_node
+    volumes:
+      - .:/app:z
+      - /app/node_modules
+      - /app/build
+    env_file:
+      - ./.env
+    command: node server.js
+    ports:
+      - "3000:3000"
+      # Expose browsersync UI: https://www.browsersync.io/docs/options/#option-ui
+      - "3001:3001"
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./docker/traefik/Dockerfile
+    image: mysite_traefik
+    container_name: mysite_traefik
+    depends_on:
+      - node
+    volumes:
+      - mysite_traefik:/etc/traefik/acme:z
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+      - "0.0.0.0:5555:5555"

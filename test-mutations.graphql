@@ -1,0 +1,62 @@
+
+mutation {
+  addUser(input: [
+    {
+        id: "",
+        email: "",
+        username: "",
+        photo: "",
+        authd: "",
+        files: [
+            {
+                id: "",
+                title: "",
+                link: "",
+                type: "",
+                about: "",
+                concent: "",
+            },
+            {
+                id: "",
+                title: "",
+                link: "",
+                type: "",
+                about: "",
+                concent: "",
+            },
+            {
+                id: "",
+                title: "",
+                link: "",
+                type: "",
+                about: "",
+                concent: "",
+            },
+            {
+                id: "",
+                title: "",
+                link: "",
+                type: "",
+                about: "",
+                concent: "",
+            }
+        ]
+    }
+  ]) {
+    user {
+        id
+        email
+        username
+        photo
+        authd
+        files {
+            id
+            title
+            link
+            type
+            about
+            concent
+        }
+    }
+  }
+}
