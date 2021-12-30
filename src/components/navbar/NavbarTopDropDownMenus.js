@@ -30,7 +30,7 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed, setShowBurgerMenu }) => {
 
   const components = [componentRoutes, pluginRoutes, utilityRoutes];
 
-  const pages = [toolsRoutes, billingRoutes, socialRoutes, emailRoutes, ECommerceRoutes, funnelRoutes, errorsRoutes];
+  const pages = [billingRoutes, socialRoutes, emailRoutes, ECommerceRoutes, toolsRoutes, funnelRoutes, errorsRoutes];
 
   const handleSetNavbarCollapsed = () => {
     const windowWidth = window.innerWidth;

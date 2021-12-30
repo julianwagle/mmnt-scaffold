@@ -30,6 +30,7 @@ const LogInOrSignUpForm = ({ setRedirect, setRedirectUrl, hasLabel, layout }) =>
       url: `${process.env.REACT_APP_AUTHD_URL}/${urlEnd}`,
       handleCodeInApp: true
     };
+
     sendSignInLinkToEmail(firebaseAuth, email, actionCodeSettings)
       .then(() => {
         toast.success(`Authentication E-mail sent to ${email}`);
@@ -58,7 +59,7 @@ const LogInOrSignUpForm = ({ setRedirect, setRedirectUrl, hasLabel, layout }) =>
       </FormGroup>
       <FormGroup>
         <Button color="primary" block className="mt-3" disabled={false}>
-          Let's Go!
+          Let's Go!!!
         </Button>
       </FormGroup>
       <Divider className="mt-4">or you can use</Divider>

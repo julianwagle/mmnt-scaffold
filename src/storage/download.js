@@ -29,7 +29,6 @@ function firebaseDownloadFiles(
   folder='',
   user=''
 ) {
-    console.log(files);
     for (let i = 0; i < files.length; i++) {
       FirebaseDownloadFile(files[i], folder, user)
     }

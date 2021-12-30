@@ -8,7 +8,6 @@ import ProductDetailsFooter from './product-details/ProductDetailsFooter';
 import ProductDetailsMain from './product-details/ProductDetailsMain';
 
 const ProductDetails = ({ match }) => {
-  // TODO: Question about data fetch (fetch 2 or 1)
   const { products } = useContext(ProductContext);
   const { id } = match.params;
 

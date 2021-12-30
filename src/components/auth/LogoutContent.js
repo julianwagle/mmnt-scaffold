@@ -17,7 +17,7 @@ const LogoutContent = ({ titleTag: TitleTag }) => {
     setCurrentUser(null)
     toast.success(`Sucessfully signed out`);
   }).catch((error) => {
-    console.log(error);
+    toast.error(error);
   })   
   return (
     <Fragment>

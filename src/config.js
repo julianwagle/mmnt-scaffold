@@ -3,8 +3,9 @@ export const version = '1.0.1';
 export const navbarBreakPoint = 'xl'; // Vertical navbar breakpoint
 export const topNavbarBreakpoint = 'lg';
 export const settings = {
-  email: '', 
   currentUser: false,
+  email: '', 
+  subscription: false,
   token: false,
   isFluid: false,
   isRTL: false,

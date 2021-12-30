@@ -1,0 +1,88 @@
+mutation {
+  addUser(input: [
+    {
+        id: "",
+        email: "",
+        username: "",
+        photoUrl: "",
+        role: "",
+        auth: {
+            id: "",
+            authd: true,
+            googleId: "",
+            accessToken: "",
+            refreshToken: "",
+        },
+        subscriptions: [
+            {
+                id: "",
+                stripeSubscriptionId: "",
+                stripeCustomerId: "",
+                stripePriceId: "",
+                trialEnd: "",
+                trialStart: "",
+                active: true,
+            }
+        ],
+        cards: [
+            {
+                id: "",
+                expiryMonth: "",
+                expiryYear: "",
+                last4: "",
+                brand: "",                
+            }
+        ],
+        files: [
+            {
+                id: "",
+                name: "",
+                type: "",
+                size: "",
+                about: "",
+                link: "",
+            },
+            {
+                id: "",
+                name: "",
+                type: "",
+                size: "",
+                about: "",
+                link: "",
+            },
+        ]
+    }
+  ]) {
+    user {
+        id
+        email
+        username
+        photoUrl
+        role
+        subscriptions {
+            id
+            stripeSubscriptionId
+            stripeCustomerId
+            stripePriceId
+            trialEnd
+            trialStart
+            active
+        }
+        cards {
+            id
+            expiryMonth
+            expiryYear
+            last4
+            brand     
+        }
+        files {
+            id
+            name
+            type
+            size
+            about
+            link
+        }
+    }
+  }
+}

@@ -7,10 +7,12 @@ import { getItemFromStore, setItemToStore, themeColors } from './helpers/utils';
 
 import { onAuthStateChanged } from "firebase/auth";
 import firebaseAuth from './firebase/authentication';
+import readSubscription from './crud/subscription/readSubscription'
 
 const Main = props => {
   const [email, setEmail] = useState(getItemFromStore('email', settings.email));
   const [currentUser, setCurrentUser] = useState(getItemFromStore('currentUser', settings.currentUser));
+  const [subscription, setSubscription] = useState(getItemFromStore('subscription', settings.subscription));
   const [token, setToken] = useState(getItemFromStore('token', settings.token));
   const [isFluid, setIsFluid] = useState(getItemFromStore('isFluid', settings.isFluid));
   const [isRTL, setIsRTL] = useState(getItemFromStore('isRTL', settings.isRTL));
@@ -31,10 +33,12 @@ const Main = props => {
 
   const toggleModal = () => setIsOpenSidePanel(prevIsOpenSidePanel => !prevIsOpenSidePanel);
   const value = {
-    email, 
-    setEmail,
     currentUser, 
     setCurrentUser,
+    email, 
+    setEmail,
+    subscription, 
+    setSubscription,
     token, 
     setToken,
     isRTL,
@@ -78,10 +82,14 @@ const Main = props => {
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
       setItemToStore('currentUser', user);
-      console.log(user)
       if (user) {
         setItemToStore('email', user.email);
         setItemToStore('token', user.getIdToken());
+        setItemToStore('subscription', readSubscription(user.displayName))
+      } else {
+        // setItemToStore('email', '');
+        setItemToStore('token', '');
+        setItemToStore('subscription', '')
       }
     });
     // eslint-disable-next-line

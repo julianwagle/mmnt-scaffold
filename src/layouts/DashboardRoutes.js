@@ -51,7 +51,9 @@ import Feed from '../components/feed/Feed';
 import Kanban from '../components/kanban/Kanban';
 import Activity from '../components/page/Activity';
 import Associations from '../components/page/Associations';
-import Billing from '../components/page/Billing';
+// import Billing from '../components/page/Billing';
+import BillingAlt from '../components/page/BillingAlt';
+// import CheckoutStripe from '../components/page/CheckoutStripe';
 import CustomerDetails from '../components/page/CustomerDetails';
 import EventCreate from '../components/page/EventCreate';
 import EventDetail from '../components/page/EventDetail';
@@ -144,7 +146,8 @@ const DashboardRoutes = () => (
     {/*Pages*/}
     <Route path="/social/activity" exact component={Activity} />
     <Route path="/social/associations" exact component={Associations} />
-    <Route path="/billing/billing" exact component={Billing} />
+    <Route path="/billing/billing" exact component={BillingAlt} />
+    {/* <Route path="/billing/billing" exact component={CheckoutStripe} /> */}
     <Route path="/billing/customer-details" exact component={CustomerDetails} />
     <Route path="/social/event-detail" exact component={EventDetail} />
     <Route path="/social/event-create" exact component={EventCreate} />

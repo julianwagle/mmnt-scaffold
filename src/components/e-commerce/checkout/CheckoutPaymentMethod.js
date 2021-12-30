@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import iconPaymentMethodsGrid from '../../../assets/img/icons/icon-payment-methods-grid.png';
 import iconPaypalFull from '../../../assets/img/icons/icon-paypal-full.png';
 import shield from '../../../assets/img/icons/shield.png';
-
+ 
 const CheckoutPaymentMethod = ({ payableTotal, paymentMethod, setPaymentMethod }) => {
   const { currency } = useContext(AppContext);
   const { shoppingCart, shoppingCartDispatch } = useContext(ProductContext);

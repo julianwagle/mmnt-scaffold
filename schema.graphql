@@ -1,18 +1,76 @@
-type File {
-    id: ID!
-    title: String!
-    link: String!
-    type: String!
-    about: String!
-    concent: Boolean!
-    user: User!
-}
+
 
 type User {
-    id: ID!
+    id: String!
     email: String!
     username: String!
-    photo: String!
-    authd: Boolean!
+    photoUrl: String!
+    role: String!
+    auth: Auth! @hasInverse(field: user)
+    subscriptions: [Subscription] @hasInverse(field: user)
+    cards: [Card] @hasInverse(field: user)
     files: [File] @hasInverse(field: user)
 }
+
+type Auth {
+    id: String!
+    authd: Boolean!
+    googleId: String
+    accessToken: String
+    refreshToken: String
+}
+
+type File {
+    id: String!
+    name: String!
+    type: String!
+    size: String!
+    about: String!
+    link: String!
+}
+
+type Subscription {
+    id: String!
+    stripeSubscriptionId: String!
+    stripeCustomerId: String!
+    stripePriceId: String!
+    trialEnd: String!
+    trialStart: String!
+    active: Boolean!
+}
+
+type Card {
+    id: String!
+    expiryMonth: String
+    expiryYear: String
+    last4: String
+    brand: String
+}
+
+
+# type Post {
+#     createdAt: String
+#     userFrom: User!
+#     content: String!
+#     files: [File]
+# }
+
+# type PostPublic {
+#     id: String!
+#     post: Post!
+#     responses: [PostPublicResponse]
+# }
+
+# type PostPublicResponse {
+#     id: String!
+#     post: Post!
+#     postTo: PostPublic!
+# }
+
+# type PostPrivate {
+#     id: String!
+#     post: Post!
+#     userTo: User!
+# }
+
+# Dgraph.Authorization {"JWKUrl":"https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com", "Namespace": "https://dgraph.io/jwt/claims", "Audience": ["fb-wagle-1"], "Header": "X-Auth-Token"}

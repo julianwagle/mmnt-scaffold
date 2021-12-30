@@ -15,16 +15,19 @@ REACT_APP_PROJECT_NAME="$(sed '3q;d' $ENV)"
 REACT_APP_PROJECT_NAME=`echo $REACT_APP_PROJECT_NAME | sed 's/REACT_APP_PROJECT_NAME=//'`
 REACT_APP_PROJECT_NAME=`echo $REACT_APP_PROJECT_NAME | sed 's/ *$//g'`
 
-read -n1 -p "Production (0) OR Development (1)? [0,1]" input 
+read -n1 -p "Production Full-Stack (0) OR Development Front-End (1) OR Development Back-End (2)? [0,1,2]" input 
 case $input in  
   0) echo -e "\nUPDATING AND RESTARTING THE *PRODUCTION* BUILD!!!";
     cd ../;
     DOCKER_CMDS="cd $REACT_APP_PROJECT_NAME; docker-compose down; docker-compose up --build";
     sshpass -p "$REACT_APP_SERVER_PASS" rsync -avz --exclude-from=$REACT_APP_PROJECT_NAME/exclude.txt $REACT_APP_PROJECT_NAME/ root@$REACT_APP_SERVER_ADRS:/root/$REACT_APP_PROJECT_NAME/;
     sshpass -p "$REACT_APP_SERVER_PASS" ssh -o StrictHostKeyChecking=no root@$REACT_APP_SERVER_ADRS "$DOCKER_CMDS" ;; 
-  1) echo -e "\nUPDATING AND RESTARTING THE *DEVELOPMENT* BUILD!!!";
+  1) echo -e "\nUPDATING AND RESTARTING THE *DEVELOPMENT FRONT-END* BUILD!!!";
+    # npm i;
+    npm start;;  
+  2) echo -e "\nUPDATING AND RESTARTING THE *DEVELOPMENT BACK-END* BUILD!!!";
     curl -X POST localhost:8080/admin/schema --data-binary '@schema.graphql'
-    npm i;
-    npm start;; 
-  *) echo -e "\nINVALID INPUT!!!\nONLY 0 OR 1 ARE VALID!!!" ;; 
+    # npm i;
+    npm run-script server;; 
+  *) echo -e "\nINVALID INPUT!!!\nONLY 0 OR 1 OR 2 ARE VALID!!!" ;; 
 esac
